@@ -36,10 +36,16 @@ export default function CourseInformationForm() {
   useEffect(() => {
     const getCategories = async () => {
       setLoading(true)
-      const categories = await fetchCourseCategories()
-      if (categories.length > 0) {
-        // console.log("categories", categories)
-        setCourseCategories(categories)
+      const categories = await fetchCourseCategories();
+      // if (categories.length > 0) {
+      //   // console.log("categories", categories)
+      //   setCourseCategories(categories)
+      // }
+
+      if (Array.isArray(categories) && categories.length > 0) {
+        setCourseCategories(categories);
+      } else {
+        console.warn("fetchCourseCategories returned:", categories);
       }
       setLoading(false)
     }

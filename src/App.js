@@ -23,9 +23,9 @@ import { AddCourse } from './components/core/Dashboard/AddCourse/index.jsx';
 
 function App() {
   
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const {user} = useSelector((state) => state.profile)
-  // console.log("User: ", user);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {user} = useSelector((state) => state.profile)
+  console.log("User: ", user);
   
   return (
     <div className=' relative w-screen min-h-screen bg-richblack-900 flex flex-col font-inter'>
@@ -101,8 +101,8 @@ function App() {
           
         </Route>
 
-        {/* {
-          user.accountType === ACCOUNT_TYPE.STUDENT && (
+        {
+          user && user.accountType === ACCOUNT_TYPE.STUDENT && (
             <>
               <Route path='dashboard/cart' element={<Cart />} />
               <Route path='dashboard/enrolled-courses' element={<EnrolledCourses />} />
@@ -111,12 +111,12 @@ function App() {
         }
 
         {
-          user.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+          user && user.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>
               <Route path='dashboard/add-course' element={<AddCourse />} />
             </>
           )
-        } */}
+        }
 
         <Route path='*' element={<Error />} />
 

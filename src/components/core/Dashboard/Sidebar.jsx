@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {sidebarLinks} from '../../../data/dashboard-links'
 import { useSelector } from 'react-redux'
 import {logout} from '../../../services/operations/authAPI'
@@ -16,7 +16,10 @@ export const Sidebar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    console.log("User: ", user);
+    useEffect(() => {
+        console.log("User:", user);
+    }, [user]);  // ✅ This ensures logging only happens when user changes
+    
 
     if(profileLoading || authLoading){
         return (
@@ -46,7 +49,7 @@ export const Sidebar = () => {
             <div className='mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-600'></div>
 
             <div>
-                <Sidebar 
+                <SidebarLink 
                     link={{name: "Settings", path: "dashboard/settings"}}
                     iconName={"VscSettingsGear"}
                 />

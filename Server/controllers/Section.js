@@ -100,22 +100,82 @@ exports.updateSection = async (req, res) => {
 
 // delete section
 
+// exports.deleteSection = async (req, res) => {
+//     try{
+//         // fetch the details
+//         const {sectionId, courseId} = req.body;
+
+//         //validate data
+//         if(!sectionId || !courseId){
+//             return res.status(400).json({
+//                 success: false,
+//                 message: 'Cannot fetch section ID',
+//             })
+//         }
+
+//         const section = await Section.findById(sectionId);
+// 		console.log(sectionId, courseId);
+
+// 		if(!section) {
+// 			return res.status(404).json({
+// 				success:false,
+// 				message:"Section not Found",
+// 			})
+// 		}
+
+//         //delete sub section
+// 		await SubSection.deleteMany({_id: {$in: section.subSection}});
+
+// 		await Section.findByIdAndDelete(sectionId);
+//         await Course.findByIdAndUpdate(courseId,
+//             {$pull: {courseContent: sectionId}},
+//             {new: true},
+//         )
+//         //find the updated course and return 
+// 		const course = await Course.findById(courseId).populate({
+// 			path:"courseContent",
+// 			populate: {
+// 				path: "subSection"
+// 			}
+// 		})
+// 		.exec();
+
+//         // TODO: do we need to delete it from the course schema
+//         // await Course.findByIdAndDelete(courseId, 
+//         //     {
+//         //         $pull: {
+//         //             courseContent: deleteSection._id
+//         //         }
+//         //     }
+//         // )
+
+//         // return res
+//         return res.status(200).json({
+//             success: true,
+//             message: 'Section deleted successfully',
+//         })
+
+//     }catch(error){
+//         return res.status(500).json({
+//             error: error.message,
+//             success: false,
+//             message: 'Something went wrong while deleting the section'
+//         })
+//     }
+// }
+
+
 exports.deleteSection = async (req, res) => {
-    try{
-        // fetch the details
-        const {sectionId, courseId} = req.body;
+	try {
 
-        //validate data
-        if(!sectionId || !courseId){
-            return res.status(400).json({
-                success: false,
-                message: 'Cannot fetch section ID',
-            })
-        }
-
-        const section = await Section.findById(sectionId);
+		const { sectionId, courseId }  = req.body;
+		await Course.findByIdAndUpdate(courseId, {
+			$pull: {
+				courseContent: sectionId,
+			}
+		})
+		const section = await Section.findById(sectionId);
 		console.log(sectionId, courseId);
-
 		if(!section) {
 			return res.status(404).json({
 				success:false,
@@ -123,15 +183,12 @@ exports.deleteSection = async (req, res) => {
 			})
 		}
 
-        //delete sub section
+		//delete sub section
 		await SubSection.deleteMany({_id: {$in: section.subSection}});
 
 		await Section.findByIdAndDelete(sectionId);
-        await Course.findByIdAndUpdate(courseId,
-            {$pull: {courseContent: sectionId}},
-            {new: true},
-        )
-        //find the updated course and return 
+
+		//find the updated course and return 
 		const course = await Course.findById(courseId).populate({
 			path:"courseContent",
 			populate: {
@@ -140,26 +197,16 @@ exports.deleteSection = async (req, res) => {
 		})
 		.exec();
 
-        // TODO: do we need to delete it from the course schema
-        // await Course.findByIdAndDelete(courseId, 
-        //     {
-        //         $pull: {
-        //             courseContent: deleteSection._id
-        //         }
-        //     }
-        // )
-
-        // return res
-        return res.status(200).json({
-            success: true,
-            message: 'Section deleted successfully',
-        })
-
-    }catch(error){
-        return res.status(500).json({
-            error: error.message,
-            success: false,
-            message: 'Something went wrong while deleting the section'
-        })
-    }
-}
+		res.status(200).json({
+			success:true,
+			message:"Section deleted",
+			data:course
+		});
+	} catch (error) {
+		console.error("Error deleting section:", error);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
+	}
+};   

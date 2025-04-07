@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { HomePageExplore } from '../../../data/homepage-explore'
 import { HighlightText } from './HighlightText';
-import { CourseCard } from './CourseCard';
+import CourseCard from './CourseCard'
 
 const tabsName = [
     "Free",
