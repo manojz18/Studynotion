@@ -8,7 +8,7 @@ import FoundingStory from '../assets/Images/FoundingStory.png'
 import { Stats } from '../components/core/AboutPage/Stats'
 import { LearningGrid } from '../components/core/AboutPage/LearningGrid'
 import { ContactFormSection } from '../components/core/AboutPage/ContactFormSection'
-import Footer from '../components/common/Footer'
+import {Footer} from '../components/common/Footer'
 
 export const About = () => {
   return (
@@ -22,7 +22,7 @@ export const About = () => {
             </header>
 
             <p>
-                Studynotion is at the forefront of driving innovation in online education. 
+            NeoShiksha is at the forefront of driving innovation in online education. 
                 We're passionate about creating a brighter future by offering cutting-edge courses, 
                 leveraging emerging technologies, and nurturing a vibrant learning community.
             </p>

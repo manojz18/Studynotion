@@ -13,13 +13,38 @@ export default function RequirementsField({
   const [requirement, setRequirement] = useState("")
   const [requirementsList, setRequirementsList] = useState([])
 
-  useEffect(() => {
-    if (editCourse) {
-      setRequirementsList(course?.instructions)
+  // useEffect(() => {
+  //   if (editCourse) {
+  //     setRequirementsList(course?.instructions)
+  //   }
+  //   register(name, { required: true, validate: (value) => value.length > 0 })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
+
+useEffect(() => {
+  if (editCourse && course?.instructions) {
+    // Make sure it's an array before setting it
+    if (Array.isArray(course.instructions)) {
+      setRequirementsList(course.instructions);
+    } else if (typeof course.instructions === 'string') {
+      // If it's a string, try to parse it as JSON, or make it a single-item array
+      try {
+        const parsedInstructions = JSON.parse(course.instructions);
+        setRequirementsList(Array.isArray(parsedInstructions) ? parsedInstructions : [course.instructions]);
+      } catch (e) {
+        setRequirementsList([course.instructions]);
+      }
+    } else {
+      // If all else fails, initialize with an empty array
+      setRequirementsList([]);
     }
-    register(name, { required: true, validate: (value) => value.length > 0 })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  } else {
+    setRequirementsList([]);
+  }
+  
+  register(name, { required: true, validate: (value) => value.length > 0 });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   useEffect(() => {
     setValue(name, requirementsList)

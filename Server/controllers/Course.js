@@ -12,7 +12,7 @@ exports.createCourse = async (req, res) => {
   try {
     const{courseName, courseDescription, whatYouWillLearn, price, category,tag, status, instructions} = req.body;
 
-    const thumbnail = req.files.thumbnail;
+    const thumbnail = req.files.thumbnailImage;
     console.log("Thumbnail in course creation is", thumbnail)
     if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail || !status || !instructions) {
         return res.status(400).json({
@@ -49,7 +49,7 @@ exports.createCourse = async (req, res) => {
     await Category.findByIdAndUpdate(category,
         {
             $push: {
-                course: newCourse._id
+                courses: newCourse._id
             }
         })
 
@@ -61,7 +61,7 @@ exports.createCourse = async (req, res) => {
     return res.status(200).json({
         success:true,
         message:'Course created successfully',
-        newCourse
+        data: newCourse
     })    
 } catch (error) {
     console.error(error);

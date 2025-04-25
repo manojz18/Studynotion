@@ -48,8 +48,7 @@ export const ForgotPassword = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder='Enter Email Address'
                                     className='w-full rounded-[0.5rem] bg-richblack-800 p-[7px] text-richblack-5'/>
-                                </label>
-                                
+                                </label>    
                             )
                         }
 

@@ -88,8 +88,8 @@ exports.updateSubSection = async (req, res) => {
         if (description !== undefined) {
           subSection.description = description
         }
-        if (req.files && req.files.video !== undefined) {
-          const video = req.files.video
+        if (req.files && req.files.videoFile !== undefined) {
+          const video = req.files.videoFile
           const uploadDetails = await imageUploadToCloudinary(
             video,
             process.env.FOLDER_NAME

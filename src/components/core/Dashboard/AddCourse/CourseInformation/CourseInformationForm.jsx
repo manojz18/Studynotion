@@ -130,6 +130,11 @@ export default function CourseInformationForm() {
           formData.append("thumbnailImage", data.courseImage)
         }
         // console.log("Edit Form data: ", formData)
+
+        for (let [key, value] of formData.entries()) {
+          console.log(`${key}:`, value);
+        }
+
         setLoading(true)
         const result = await editCourseDetails(formData, token)
         setLoading(false)

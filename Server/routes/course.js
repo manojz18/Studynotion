@@ -7,6 +7,10 @@ const {
     getAllCourses,
     getCourseDetails,
     getTopSellingCourses,
+    getFullCourseDetails,
+    editCourse,
+    getInstructorCourses,
+    deleteCourse,
 } = require('../controllers/Course')
 
 // import the category controllers
@@ -46,8 +50,17 @@ const {authenticate, isAdmin, isInstructor, isStudent} = require('../middlewares
 //                     Course routes
 // ******************************************************************************
 
+
+router.post("/getFullCourseDetails", authenticate, getFullCourseDetails);
+router.get("/getInstructorCourses", authenticate, isInstructor, getInstructorCourses);
+router.delete("/deleteCourse", deleteCourse);
+// router.get("/getTopSellingCourses", getTopSellingCourses);
+
 // route for creating a course, can only be created by an instructor
 router.post('/createCourse', authenticate, isInstructor, createCourse);
+
+// route to edit course
+router.post("/editCourse", authenticate, isInstructor, editCourse);
 
 // route for add section to course
 router.post('/addSection', authenticate, isInstructor, createSection);
@@ -85,7 +98,7 @@ router.post('/createCategory', authenticate, isAdmin, createCategories);
 router.get('/showAllCategories', showAllCategories);
 
 // get category page details
-router.post('/categoryPageDetails', categoryPageDetails);
+router.post('/getCategoryPageDetails', categoryPageDetails);
 
 
 // ******************************************************************************

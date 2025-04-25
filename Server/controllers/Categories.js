@@ -33,7 +33,7 @@ exports.createCategories = async (req, res) => {
     }catch(error){
         return res.status(500).json({
             success: false,
-            message: message.error,
+            message: error.message,
         })
     }
 }
@@ -49,13 +49,13 @@ exports.showAllCategories = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Recevied all Categories",
-            allCategories,
+            data: allCategories,
         }) 
 
     }catch(error){
         return res.status(500).json({
             success: false,
-            message: message.error,
+            message: error.message,
         })
     }
 }
@@ -67,6 +67,8 @@ exports.categoryPageDetails = async (req, res) => {
         // get courseId
         const {categoryId} = req.body;
         //get all courses of this category
+        console.log("categoryId received:", categoryId);
+
         const selectedCategory = await Category.findById(categoryId)
                             .populate({
                                 path: "courses",
@@ -84,7 +86,7 @@ exports.categoryPageDetails = async (req, res) => {
         }
 
         // Handle the case when there are no courses
-        if (selectedCategory.course.length === 0) {
+        if (selectedCategory.courses.length === 0) {
             console.log("No courses found for the selected category.")
             return res.status(404).json({
             success: false,
@@ -111,7 +113,7 @@ exports.categoryPageDetails = async (req, res) => {
         // Get top-selling courses across all categories
         const allCategories = await Category.find()
         .populate({
-            path: "course",
+            path: "courses",
             match: { status: "Published" },
             populate: {
             path: "instructor",
@@ -119,7 +121,7 @@ exports.categoryPageDetails = async (req, res) => {
         })
         .exec()
 
-        const allCourses = allCategories.flatMap((category) => category.course)
+        const allCourses = allCategories.flatMap((category) => category.courses)
         const mostSellingCourses = allCourses
         .sort((a, b) => b.sold - a.sold)
         .slice(0, 10)
@@ -137,7 +139,7 @@ exports.categoryPageDetails = async (req, res) => {
     }catch(error){
         return res.status(500).json({
             success: false,
-            message: message.error,
+            message: error,
         })
     }
 }

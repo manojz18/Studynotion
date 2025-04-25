@@ -74,7 +74,7 @@ export const SubSectionModal = ({
       formData.append("description", currentValues.lectureDesc)
     }
     if (currentValues.lectureVideo !== modalData.videoUrl) {
-      formData.append("video", currentValues.lectureVideo)
+      formData.append("videoFile", currentValues.lectureVideo)
     }
     setLoading(true)
     const result = await updateSubSection(formData, token)
@@ -103,12 +103,19 @@ export const SubSectionModal = ({
       }
       return
     }
+    
 
     const formData = new FormData()
     formData.append("sectionId", modalData)
     formData.append("title", data.lectureTitle)
     formData.append("description", data.lectureDesc)
-    formData.append("video", data.lectureVideo)
+    formData.append("videoFile", data.lectureVideo)
+    formData.append("timeDuration", '00:30'); // Temporary static or estimated value
+    
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+
     setLoading(true)
     const result = await createSubSection(formData, token)
     if (result) {

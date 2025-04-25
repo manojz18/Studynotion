@@ -173,6 +173,7 @@ function Navbar() {
   const location = useLocation()
 
   const [subLinks, setSubLinks] = useState([])
+  
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -204,7 +205,8 @@ function Navbar() {
       <div className="flex w-11/12 max-w-maxContent items-center justify-between">
         {/* Logo */}
         <Link to="/">
-          <img src={logo} alt="Logo" width={160} height={32} loading="lazy" />
+          {/* <img src={logo} alt="Logo" width={160} height={32} loading="lazy" /> */}
+          <span className="text-white font-bold text-3xl">NeoShiksha</span>
         </Link>
         
         {/* Navigation links */}
@@ -229,7 +231,7 @@ function Navbar() {
                           <p className="text-center">Loading...</p>
                         ) : (subLinks && subLinks.length) ? (
                           <>
-                            {subLinks
+                            {/* {subLinks
                               ?.filter(
                                 (subLink) => subLink?.courses?.length > 0
                               )
@@ -244,7 +246,21 @@ function Navbar() {
                                 >
                                   <p>{subLink.name}</p>
                                 </Link>
-                              ))}
+                              ))} */}
+
+                            {!loading && subLinks.length > 0 ? (
+                              subLinks.map((subLink, i) => (
+                                <Link
+                                  to={`/catalog/${subLink.name.split(" ").join("-").toLowerCase()}`}
+                                  className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
+                                  key={i}
+                                >
+                                  <p>{subLink.name}</p>
+                                </Link>
+                              ))
+                            ) : (
+                              <p className="text-center">No Categories Found</p>
+                            )}
                           </>
                         ) : (
                           <p className="text-center">No Courses Found</p>

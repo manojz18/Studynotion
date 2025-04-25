@@ -20,6 +20,10 @@ import Cart from './components/core/Dashboard/Cart/index.jsx';
 import { ACCOUNT_TYPE } from './utils/constants.js';
 import { useSelector } from 'react-redux';
 import { AddCourse } from './components/core/Dashboard/AddCourse/index.jsx';
+import {MyCourses} from './components/core/Dashboard/MyCourses.jsx';
+import EditCourse from './components/core/Dashboard/EditCourse/index.js';
+import {Catalog} from './pages/Catalog.jsx'
+import CourseDetails from './pages/CourseDetails.jsx';
 
 function App() {
   
@@ -32,6 +36,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home/>} />
+        <Route path='catalog/:catalogName' element={<Catalog/>} />
+        <Route path="courses/:courseId" element={<CourseDetails/>} />
 
         <Route
           path="signup"
@@ -114,9 +120,29 @@ function App() {
           user && user.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>
               <Route path='dashboard/add-course' element={<AddCourse />} />
+              <Route path='dashboard/my-courses' element={<MyCourses />} />
+              <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} />
             </>
           )
         }
+
+
+        {/* <Route
+          element={
+            <PrivateRoute>
+              <ViewCourse />
+            </PrivateRoute>
+          }
+        >
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                element={<VideoDetails />}
+              />
+            </>
+          )}
+        </Route> */}
 
         <Route path='*' element={<Error />} />
 

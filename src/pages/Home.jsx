@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import {FaArrowRight} from 'react-icons/fa';
 import { HighlightText } from '../components/core/HomePage/HighlightText';
 import {CTAButton} from '../components/core/HomePage/CTAButton';
-import banner from '../assets/Images/banner.mp4'
+import banner2 from '../assets/Images/banner2.mp4'
 import {CodeBlocks} from '../components/core/HomePage/CodeBlocks'
 import './Home.css';
 import TimelineSection from '../components/core/HomePage/TimelineSection';
 import { LearningLanguageSection } from '../components/core/HomePage/LearningLanguageSection';
 import { InstructorSection } from '../components/core/HomePage/InstructorSection';
-import Footer from '../components/common/Footer';
+import {Footer} from '../components/common/Footer';
 import { ExploreMore } from '../components/core/HomePage/ExploreMore';
 
 
@@ -52,7 +52,7 @@ export const Home = () => {
 
             <div className='mx-3 my-12 shadow-blue-200 '>
                 <video muted loop autoPlay className='shadow-[15px_15px_0px_rgb(255,255,255)] w-[80%] mx-auto'>
-                    <source  src={banner} type="video/mp4"/>
+                    <source  src={banner2} type="video/mp4"/>
                 </video>
             </div>
 
@@ -179,7 +179,7 @@ export const Home = () => {
 
                     <div className='flex flex-col gap-10 w-[40%] items-start'>
                         <div className='text-[16px]'>
-                            The modern StudyMotion is the dictates its own terms. Today, to be a competitive
+                            The modern NeoShiksha is the dictates its own terms. Today, to be a competitive
                             specialist requires more than professional skills
                         </div>
                         <CTAButton active={true} linkto={"/login"}>
