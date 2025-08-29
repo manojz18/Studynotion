@@ -152,7 +152,7 @@ export const Home = () => {
 
                 <div className='h-[135px]'></div>
 
-                    <div className='flex flex-row gap-7 text-white'>
+                    <div className='flex mt-10 flex-row gap-7 text-white'>
 
                         <CTAButton active={true} linkto={"/signup"}>
                             <div className='flex items-center gap-3'>
